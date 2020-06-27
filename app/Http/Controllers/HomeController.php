@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mensaje;
+use App\Notifications\MessageSent;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,12 @@ class HomeController extends Controller
     }
     public function store(Request $request)
     {
-        //validation
+        $this->validate($request,
+            [
+                'body' => 'required',
+                'recipient_id' => 'required|exists:users,id',
+            ]
+        );
         $mensaje = Mensaje::create
         (
             [
@@ -40,6 +46,15 @@ class HomeController extends Controller
             ]
         );
 
+        $recipient=User::find($request->recipient_id);
+        $recipient->notify( new MessageSent($mensaje));
+
         return back()->with('flash','Tu mensaje fue enviado');
+    }
+
+    public function show($id)
+    {
+        $mensaje = Mensaje::findOrFail($id);
+        return view('messages.show', compact('mensaje'));
     }
 }
