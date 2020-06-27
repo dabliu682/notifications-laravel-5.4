@@ -46,8 +46,18 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
-                            <li><a href="/home">Enviar Mensaje</a></li>
-                            <li><a href="#">Notificaciones <span class="badge">1</span> </a></li>
+                            <li>
+                                <a href="/home">Enviar Mensaje</a>
+                            </li>
+
+                            <li>
+                                <a href="{{ route('notifications.index')}}">Notificaciones
+                                    @if($count=Auth::user()->unreadNotifications->count())
+                                        <span class="badge">{{$count}}</span>
+                                    @endif
+                                </a>
+                            </li>
+
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
