@@ -29,7 +29,7 @@ class MessageSent extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -40,10 +40,21 @@ class MessageSent extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        // return (new MailMessage)
+        //             ->greeting($notifiable->name . ',')
+        //             ->subject('Mensaje recibido desde tu sitio Web')
+        //             ->line('Has recibido un mensaje.')
+        //             ->action('Click aqui para ver el mensaje', route('mensajes.show', $this->mensaje->id))
+        //             ->line('Gracias por usar mi aplicacion !');
+
+        return (new MailMessage)->view('email.notification',
+            [
+                'msg' => $this->mensaje,
+                'user' => $notifiable,
+            ]
+        )->subject('Mensaje recibido desde Dabliu.com');
+
+        // return(new CustomMail($mensaje))->to($notifiable->email);
     }
 
     /**
