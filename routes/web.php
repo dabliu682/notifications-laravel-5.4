@@ -17,9 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::post('/mensajes', 'HomeController@store')->name('mensajes.store');
-Route::get('mensajes/{id}', 'HomeController@show')->name('mensajes.show');
+Route::resource('posts', 'PostController');
+
+Route::get('mensajes/create', 'MensajesController@create')->name('mensajes.create');
+Route::post('mensajes', 'MensajesController@store')->name('mensajes.store');
+Route::get('mensajes/{id}', 'MensajesController@show')->name('mensajes.show');
 Route::get('notificaciones', 'NotificationsContoller@index')->name('notifications.index');
 Route::patch('notificaciones/{id}', 'NotificationsContoller@read')->name('notifications.read');
 Route::delete('notificaciones/{id}', 'NotificationsContoller@destroy')->name('notifications.destroy');

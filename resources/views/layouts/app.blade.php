@@ -41,13 +41,14 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/">inicio</a></li>
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li>
-                                <a href="/home">Enviar Mensaje</a>
+                                <a href="{{ route('mensajes.create') }}">Enviar Mensaje</a>
                             </li>
 
                             <li>
