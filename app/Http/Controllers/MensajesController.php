@@ -7,7 +7,7 @@ use App\Notifications\MessageSent;
 use App\User;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class MensajesController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -24,7 +24,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function create()
     {
         $users = User::where('id', '!=', auth()->id())->get();
         return view('home', compact('users'));

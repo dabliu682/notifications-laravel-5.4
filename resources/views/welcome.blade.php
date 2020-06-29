@@ -4,18 +4,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Inicio</div>
-
-                    <div class="panel-body">
-                        @if (session('status'))
-                            <div class="alert alert-success">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-                        Bienvenidos
+                @foreach(App\Post::latest()->get() as $post)
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a></div>
                     </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
